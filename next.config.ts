@@ -6,12 +6,8 @@ const nextConfig: NextConfig = {
   partialPrefetching: false,
   reactCompiler: true,
   images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "images.unsplash.com",
-      },
-    ],
+    // Destination images come from the backend API and can be hosted anywhere
+    unoptimized: true,
   },
   turbopack: {
     rules: {

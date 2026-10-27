@@ -11,29 +11,24 @@ export type Destination = {
   duration: string;
   rating: number;
   imageUrl: string;
+  description?: string;
+  highlights?: string[];
+  reviews?: number;
 };
 
-export default function DestinationCard({
-  destination,
-}: {
-  destination: Destination;
-}) {
+export default function DestinationCard({ destination }: { destination: Destination }) {
   const { name, country, price, duration, rating, imageUrl } = destination;
-  console.log("Image props:", { name, imageUrl });
   return (
-    <Card className="group rounded-none py-0 shadow-none  ring-0">
+    <Card className="group rounded-none py-0 shadow-none ring-0">
       <CardContent className="p-0">
-        <div className="relative aspect-[2/1] overflow-hidden ">
-          <img
-        
+        <div className="relative aspect-[2/1] overflow-hidden">
+          <Image
             src={imageUrl}
-            alt={`${name} | 'Destination Image'`}
-            // fill
+            alt={`${name} destination image`}
+            fill
             sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
             className="object-cover transition-transform duration-300 group-hover:scale-105"
-          
           />
-       
           <span className="absolute top-2.5 right-2.5 flex items-center gap-1 rounded-md bg-white px-2 py-1 text-xs font-semibold text-neutral-900 shadow-sm">
             {rating}
             <Star className="size-3 fill-neutral-900 text-neutral-900" />
@@ -64,7 +59,7 @@ export default function DestinationCard({
           </p>
 
           <Link
-            href="#book"
+            href={`/destinations/${destination._id}`}
             className="mt-2 inline-flex items-center gap-1 text-xs font-semibold tracking-wide text-brand uppercase transition-colors hover:text-brand-dark hover:underline"
           >
             Book Now
