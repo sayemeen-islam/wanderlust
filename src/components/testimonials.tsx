@@ -65,7 +65,7 @@ export default function Testimonials() {
     <section id="testimonials" className="bg-white py-16 sm:py-20 lg:py-24">
       <div className="mx-auto w-full max-w-6xl px-6">
         <Carousel
-          opts={{ align: "start", slidesToScroll: 2 }}
+          opts={{ align: "start", slidesToScroll: 1 }}
           className="w-full"
         >
           <div className="flex items-end justify-between gap-6">

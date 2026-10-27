@@ -3,17 +3,17 @@ import Link from "next/link";
 import { Menu, User } from "lucide-react";
 
 const navLinks = [
-  { label: "Home", href: "#home", active: true },
-  { label: "Destinations", href: "#destinations" },
-  { label: "My Bookings", href: "#bookings" },
-  { label: "Admin", href: "#admin" },
+  { label: "Home", href: "/", active: true },
+  { label: "Destinations", href: "/destinations" },
+  { label: "Add Destination", href: "/add-destination" },
+  { label: "My Bookings", href: "/bookings" },
 ];
 
 function NavLinks({ mobile = false }: { mobile?: boolean }) {
   return (
     <>
       {navLinks.map((link) => (
-        <a
+        <Link
           key={link.label}
           href={link.href}
           aria-current={link.active ? "page" : undefined}
@@ -32,7 +32,7 @@ function NavLinks({ mobile = false }: { mobile?: boolean }) {
           }
         >
           {link.label}
-        </a>
+        </Link>
       ))}
     </>
   );
@@ -40,7 +40,7 @@ function NavLinks({ mobile = false }: { mobile?: boolean }) {
 
 export default function Navbar() {
   return (
-    <header className="z-20 bg-white absolute top-3  right-3 left-3" >
+    <header className="absolute z-20 bg-white top-4 right-4 left-4 " >
       <div className="grid h-16 grid-cols-[1fr_auto_1fr] items-center gap-4 px-4 sm:px-6 lg:h-20 lg:px-10">
         <div className="flex items-center">
           <details className="group relative lg:hidden">
