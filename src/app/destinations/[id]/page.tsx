@@ -15,6 +15,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import EditDetailsDialog from "@/components/EditDetailsDialog";
 
 const benefits = [
   "Free cancellation up to 7 days",
@@ -31,8 +32,8 @@ const defaultHighlights = [
 ];
 
 
-export default function DestinationDetailsPage({ params }: {params:Promise<{id:string}>}) {
-
+export default async function DestinationDetailsPage({ params }: {params:Promise<{id:string}>}) {
+  const { id } = await params;
   return (
     <main className="flex-1 bg-white py-10 sm:py-12 mt-20">
       <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
@@ -46,13 +47,8 @@ export default function DestinationDetailsPage({ params }: {params:Promise<{id:s
           </Link>
 
           <div className="flex items-center gap-3">
-            <Button
-              variant="outline"
-              className="h-9 border-neutral-300 px-4"
-            >
-              <Pencil data-icon="inline-start" />
-              Edit
-            </Button>
+           
+            <EditDetailsDialog destination={await fetchDestination(id)}></EditDetailsDialog>
             <Button
               variant="outline"
               className="h-9 border-destructive/40 px-4 text-destructive hover:bg-destructive/10 hover:text-destructive"
@@ -64,14 +60,14 @@ export default function DestinationDetailsPage({ params }: {params:Promise<{id:s
         </div>
 
         <Suspense fallback={<DetailsFallback />}>
-          <DestinationDetails params={params} />
+          <DestinationDetails id={id} />
         </Suspense>
       </div>
     </main>
   );
 }
 
-type DestinationData = {
+export type DestinationData = {
   _id?: string;
   name?: string;
   country?: string;
@@ -86,12 +82,8 @@ type DestinationData = {
   highlights?: unknown;
 };
 
-async function DestinationDetails({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
-  const { id } = await params;
+async function DestinationDetails({id}:{id:string}) {
+
 
   const destination = (await fetchDestination(id)) as DestinationData | null;
   if (!destination) {
