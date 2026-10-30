@@ -1,6 +1,6 @@
-import DestinationCard, {
-  type Destination,
-} from "@/components/destination-card";
+
+import DestinationCard from "@/components/destination/destination-card";
+import {TDestination } from "@/lib/type";
 import { Suspense } from "react";
 
 export default function DestinationsPage() {
@@ -46,7 +46,7 @@ async function DestinationList() {
       </p>
 
       <div className="mt-6 grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
-        {destinations.map((destination: Destination) => (
+        {destinations.map((destination: TDestination) => (
           <DestinationCard
             key={destination._id}
             destination={destination}

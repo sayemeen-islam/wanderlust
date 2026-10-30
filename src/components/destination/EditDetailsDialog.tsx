@@ -26,7 +26,7 @@ import { Field, FieldGroup } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Pencil } from "lucide-react";
-import { DestinationData } from "@/app/destinations/[id]/page";
+import type { TDestination } from "@/lib/type";
 import { useRouter } from "next/navigation";
 import { Toast } from "@base-ui/react";
 
@@ -41,7 +41,7 @@ const categories = [
 ];
 
 
-const EditDetailsDialog = ({destination}:{ destination:DestinationData
+const EditDetailsDialog = ({destination}:{ destination:TDestination
 }) => {
  
   const [form, setForm] = useState(destination);

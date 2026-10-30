@@ -2,28 +2,18 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, CalendarDays, MapPin, Star } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import { TDestination } from "@/lib/type";
 
-export type Destination = {
-  _id: string;
-  name: string;
-  country: string;
-  price: number;
-  duration: string;
-  rating: number;
-  imageUrl: string;
-  description?: string;
-  highlights?: string[];
-  reviews?: number;
-};
 
-export default function DestinationCard({ destination }: { destination: Destination }) {
+
+export default function DestinationCard({ destination }: { destination: TDestination }) {
   const { name, country, price, duration, rating, imageUrl } = destination;
   return (
     <Card className="group rounded-none py-0 shadow-none ring-0">
       <CardContent className="p-0">
         <div className="relative aspect-[2/1] overflow-hidden">
           <Image
-            src={imageUrl}
+            src={imageUrl as string}
             alt={`${name} destination image`}
             fill
             sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
@@ -47,7 +37,7 @@ export default function DestinationCard({ destination }: { destination: Destinat
             </h3>
             <p className="shrink-0 text-sm whitespace-nowrap text-neutral-900">
               <span className="font-semibold">
-                ${price.toLocaleString("en-US")}
+                ${price?.toLocaleString("en-US")}
               </span>
               <span className="text-[10px] text-neutral-500">/Person</span>
             </p>

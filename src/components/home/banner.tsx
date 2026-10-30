@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
+import Link from "next/link";
 
 const searchFields = [
   { label: "Location", value: "Address, City or Zip" },
@@ -17,7 +18,7 @@ export default function Banner() {
         fill
         preload
         sizes="100vw"
-        className="object-cover object-center"
+        className="object-cover object-center "
       />
       <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/5 to-black/25" />
 
@@ -33,19 +34,19 @@ export default function Banner() {
         </p>
 
         <div className="mt-8 flex w-full flex-wrap items-center justify-center gap-3 sm:gap-4">
-          <a
-            href="#destinations"
+          <Link
+            href="/destinations"
             className="group inline-flex h-12 w-full items-center justify-center gap-2 bg-brand px-5 text-xs font-semibold tracking-[0.16em] text-white uppercase transition-colors hover:bg-brand-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:w-auto sm:px-7 sm:text-sm"
           >
             Explore Now
             <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
-          </a>
-          <a
-            href="#destinations"
+          </Link>
+          <Link
+            href="/destinations"
             className="inline-flex h-12 w-full items-center justify-center bg-white/15 px-5 text-xs font-semibold tracking-[0.16em] text-white uppercase ring-1 ring-white/25 backdrop-blur-sm transition-colors hover:bg-white/25 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:w-auto sm:px-7 sm:text-sm"
           >
             View Destination
-          </a>
+          </Link>
         </div>
       </div>
 

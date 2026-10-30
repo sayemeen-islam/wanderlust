@@ -4,24 +4,17 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import {
   ArrowLeft,
-  ArrowRight,
   CalendarDays,
   Check,
   MapPin,
-  Pencil,
   Star,
-  Trash2,
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import EditDetailsDialog from "@/components/EditDetailsDialog";
+import EditDetailsDialog from "@/components/destination/EditDetailsDialog";
+import DeleteDestinationDialog from "@/components/destination/DeleteDestinationDialog";
+import BookingCard from "@/components/Booking/BookingCard";
+import {  TDestination } from "@/lib/type";
 
-const benefits = [
-  "Free cancellation up to 7 days",
-  "Travel insurance included",
-  "24/7 customer support",
-];
+
 
 const defaultHighlights = [
   "Luxury beachfront accommodation",
@@ -49,13 +42,8 @@ export default async function DestinationDetailsPage({ params }: {params:Promise
           <div className="flex items-center gap-3">
            
             <EditDetailsDialog destination={await fetchDestination(id)}></EditDetailsDialog>
-            <Button
-              variant="outline"
-              className="h-9 border-destructive/40 px-4 text-destructive hover:bg-destructive/10 hover:text-destructive"
-            >
-              <Trash2 data-icon="inline-start" />
-              Cancel
-            </Button>
+            <DeleteDestinationDialog destination={await fetchDestination(id)}></DeleteDestinationDialog>
+            
           </div>
         </div>
 
@@ -67,25 +55,12 @@ export default async function DestinationDetailsPage({ params }: {params:Promise
   );
 }
 
-export type DestinationData = {
-  _id?: string;
-  name?: string;
-  country?: string;
-  category?: string;
-  price?: number | string;
-  duration?: string;
-  departureDate?: string;
-  rating?: number;
-  reviews?: number;
-  imageUrl?: string;
-  description?: string;
-  highlights?: unknown;
-};
+
 
 async function DestinationDetails({id}:{id:string}) {
 
 
-  const destination = (await fetchDestination(id)) as DestinationData | null;
+  const destination = (await fetchDestination(id)) as TDestination | null;
   if (!destination) {
     notFound();
   }
@@ -183,40 +158,9 @@ async function DestinationDetails({id}:{id:string}) {
             </>
           )}
         </div>
-
-        <Card className="h-fit rounded-xl shadow-none">
-          <CardContent>
-            <span className="text-xs text-neutral-500">Starting from</span>
-            <p className="mt-1 text-3xl font-semibold text-brand">
-              {price !== null ? `$${price.toLocaleString("en-US")}` : "—"}
-            </p>
-            <span className="text-xs text-neutral-500">per person</span>
-
-            <Input
-              type="date"
-              defaultValue={departureDate}
-              aria-label="Select departure date"
-              className="mt-5 h-11"
-            />
-
-            <Button className="mt-3 h-11 w-full bg-brand hover:bg-brand-dark">
-              Book Now
-              <ArrowRight data-icon="inline-end" />
-            </Button>
-
-            <ul className="mt-5 flex flex-col gap-2.5">
-              {benefits.map((benefit) => (
-                <li
-                  key={benefit}
-                  className="flex items-start gap-2 text-xs text-neutral-600"
-                >
-                  <Check className="mt-0.5 size-3.5 shrink-0 text-emerald-500" />
-                  {benefit}
-                </li>
-              ))}
-            </ul>
-          </CardContent>
-        </Card>
+ 
+        <BookingCard destination={destination}></BookingCard>
+       
       </div>
     </>
   );
