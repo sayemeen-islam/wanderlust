@@ -38,7 +38,7 @@ export default function MyBookingCard({ booking }: { booking: TBooking }) {
     const router=useRouter()
 
  const handleCancelBooking=async()=>{
-   const res=await fetch(`http://localhost:5000/my-booking/${bookingId}`,{
+   const res=await fetch(`${process.env.NEXT_PUBLIC_API_URL}/my-booking/${bookingId}`,{
     method:'DELETE'
    })
    const result=await res.json()
