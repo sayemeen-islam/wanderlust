@@ -29,6 +29,7 @@ import { Pencil } from "lucide-react";
 import type { TDestination } from "@/lib/type";
 import { useRouter } from "next/navigation";
 import { Toast } from "@base-ui/react";
+import { getTokenFromClient } from "@/lib/getTokenFromClient";
 
 const categories = [
   "Beach",
@@ -59,11 +60,12 @@ const EditDetailsDialog = ({destination}:{ destination:TDestination
     event.preventDefault();
     console.log("New travel package:", form);
     const {_id,...updatedData}=form    
- 
-    const res = await fetch(`http://localhost:5000/destination/${destination._id}`, {
+       const token = await getTokenFromClient()
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/${destination._id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
+        authorization: `Bearer ${token}`
       },
       body: JSON.stringify(updatedData),
     });

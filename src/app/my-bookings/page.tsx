@@ -4,6 +4,7 @@ import { headers } from "next/headers";
 import { auth } from "@/lib/auth";
 import MyBookingCard from "@/components/Booking/MyBookingCard";
 import type { TBooking } from "@/lib/type";
+import { getTokenFromServer } from "@/lib/getTokenFromServer";
 
 export default function MyBookingsPage() {
   return (
@@ -78,8 +79,13 @@ async function BookingsList() {
 }
 
 async function fetchBookings(email: string): Promise<TBooking[]> {
+  const token = await getTokenFromServer()
   try {
-    const res = await fetch(`http://localhost:5000/my-bookings/${email}`);
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/my-bookings/${email}`, {
+    headers: {
+      authorization: `Bearer ${token}`,
+    }
+  });
     if (!res.ok) return [];
     const data = await res.json();
     return Array.isArray(data) ? (data as TBooking[]) : [];

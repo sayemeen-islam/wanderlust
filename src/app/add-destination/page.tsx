@@ -17,6 +17,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { authClient } from "@/lib/auth-client";
 
 const categories = [
   "Beach",
@@ -54,13 +55,17 @@ export default function AddDestinationPage() {
 
   const handleSubmit = async(event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log("New travel package:", form);
     
-
-    const res=await fetch('http://localhost:5000/add-destination',{
+    
+    const {data,error}=await authClient.token()
+    const token=data?.token
+    
+    
+    const res=await fetch(`${process.env.NEXT_PUBLIC_API_URL}/add-destination`,{
       method:'POST',
       headers:{
-       "Content-Type": "application/json"
+       "Content-Type": "application/json",
+       authorization: `Bearer ${token}`
       },
       body: JSON.stringify(form)
     })

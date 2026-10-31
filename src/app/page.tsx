@@ -4,11 +4,13 @@ import WhyChoose from "@/components/home/why-choose";
 import Testimonials from "@/components/home/testimonials";
 import CtaBanner from "@/components/home/cta-banner";
 import Footer from "@/components/shared/footer";
+import Featured from "@/components/home/featured";
 
 export default function Home() {
   return (
     <>
       <Banner />
+      <Featured></Featured>
       <WhyChoose />
       <Testimonials />
       <CtaBanner />

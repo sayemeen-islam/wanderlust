@@ -13,6 +13,8 @@ import EditDetailsDialog from "@/components/destination/EditDetailsDialog";
 import DeleteDestinationDialog from "@/components/destination/DeleteDestinationDialog";
 import BookingCard from "@/components/Booking/BookingCard";
 import {  TDestination } from "@/lib/type";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
 
 
@@ -27,6 +29,7 @@ const defaultHighlights = [
 
 export default async function DestinationDetailsPage({ params }: {params:Promise<{id:string}>}) {
   const { id } = await params;
+
   return (
     <main className="flex-1 bg-white py-10 sm:py-12 mt-20">
       <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
@@ -172,10 +175,20 @@ function parsePrice(value: number | string | undefined) {
 }
 
 async function fetchDestination(id: string) {
+  const jwtToken=await auth.api.getToken({
+    headers:await headers()
+  })
+  console.log(jwtToken?.token);
+  const token=jwtToken?.token
+  
   try {
     const res = await fetch(
-      `http://localhost:5000/destination/${id}`
-    );
+      `${process.env.NEXT_PUBLIC_API_URL}/destination/${id}`,
+      {
+    headers: {
+      authorization: `Bearer ${token}`
+    }
+  });
     if (!res.ok) return null;
     return await res.json();
   } catch (error) {

@@ -24,7 +24,7 @@ export default function LoginPage() {
   const handleLogin=async(e:React.SubmitEvent<HTMLElement>)=>{
     e.preventDefault()
     const formData=new FormData(e.target)
-    const user=Object.fromEntries(formData.entries()) as {name:string, image:string, email:string,password:string}
+    const user=Object.fromEntries(formData.entries()) as {email:string,password:string}
 
     const{data,error}=await authClient.signIn.email({
       ...user

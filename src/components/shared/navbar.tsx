@@ -17,6 +17,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import { Button } from "@/components/ui/button"
+import { useRouter } from "next/navigation";
 
 const navLinks = [
   { label: "Home", href: "/", active: true },
@@ -58,9 +59,11 @@ export default function Navbar() {
   const { data: session } = authClient.useSession()
 console.log(session?.user, 'from nav');
 const user=session?.user
+const router=useRouter()
 
 const handleSignOut=()=>{
   authClient.signOut();
+  router.push('/login')
 }
   return (
     <header className="absolute z-20 bg-white top-4 right-4 left-4 " >
