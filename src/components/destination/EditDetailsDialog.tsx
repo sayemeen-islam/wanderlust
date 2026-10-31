@@ -61,7 +61,7 @@ const EditDetailsDialog = ({destination}:{ destination:TDestination
     console.log("New travel package:", form);
     const {_id,...updatedData}=form    
        const token = await getTokenFromClient()
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/${destination._id}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/destination/${destination._id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
